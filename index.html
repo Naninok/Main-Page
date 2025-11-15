@@ -1,63 +1,102 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <title>Veolia Calculator</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Veolia Calculator</title>
 
-  <script async src="https://www.googletagmanager.com/gtag/js/id=G-JVEP93Q72P"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-JVEP93Q72P');
-  </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JVEP93Q72P"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-JVEP93Q72P');
+    </script>
 </head>
 <body>
-  <nav class="navbar">
-    <div class="nav-links"> 
-      
-      <div class="dropdown">
-        <button class="nav-link dropdown-btn">
-          📊 Plant Calculators ▼
-        </button>
-        <div class="dropdown-content">
-          <a href="https://naninok.github.io/Veolia-calculator/" class="dropdown-item">Cargill Calculator</a>
-          
-          
-        </div>
-      </div>
 
-      <div class="dropdown">
-        <button class="nav-link dropdown-btn">
-          🧪 Dosing Calculator ▼
-        </button>
-        <div class="dropdown-content">
-          <a href="https://naninok.github.io/NT4201/" class="dropdown-item">NT4201</a>
-          
-        </div>
-      </div>
+<button class="hamburger" id="hamburger">☰</button>
 
-      
+<nav class="sidebar" id="sidebar">
+    <div class="side-header">
+        <div class="side-title"></div>
+        <button id="closeSidebar" class="close-btn">✕</button>
     </div>
-  </nav>
 
-  <div class="main-content">
-    <div class="container">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Veolia_logo.svg/1024px-Veolia_logo.svg.png" 
-         alt="Veolia Logo" 
-         class="logo">
-      
-      <div class="button-container">
-        <a href="https://naninok.github.io/STP/" class="btn">STP Calculator</a>
-        <a href="https://naninok.github.io/LSI-Calculator/" class="btn">LSI Calculator</a>
-      </div>
+    <button class="side-parent" data-target="plant" aria-expanded="false">
+        📊 Plant Calculators
+        <span class="caret">▸</span>
+    </button>
+    <div id="submenu-plant" class="submenu" aria-hidden="true">
+        <a class="side-item" href="https://naninok.github.io/Veolia-calculator/">Cargill Calculator</a>
     </div>
-  </div>
 
+    <button class="side-parent" data-target="dose" aria-expanded="false">
+        🧪 Dosing Calculator
+        <span class="caret">▸</span>
+    </button>
+    <div id="submenu-dose" class="submenu" aria-hidden="true">
+        <a class="side-item" href="https://naninok.github.io/NT4201/">NT4201 Dosing</a>
+    </div>
+
+   
+</nav>
+
+<div id="overlay" class="overlay"></div>
+
+<main class="center-wrapper homepage-center">
+    <div class="center-inner">
+        <img class="center-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Veolia_logo.svg/1024px-Veolia_logo.svg.png" alt="Veolia Logo">
+
+        <div class="center-buttons">
+            <a href="https://naninok.github.io/STP/" class="center-btn">STP Calculator</a>
+            <a href="https://naninok.github.io/LSI-Calculator/" class="center-btn">LSI Calculator</a>
+        </div>
+    </div>
+</main>
+
+
+<script>
+    const hamburger = document.getElementById('hamburger');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    const closeSidebar = document.getElementById('closeSidebar');
+    const sideParents = document.querySelectorAll('.side-parent');
+
+    // Function to open/close sidebar
+    function openSidebar(){ sidebar.classList.add('open'); overlay.classList.add('show'); }
+    function closeSidebarFunc(){ sidebar.classList.remove('open'); overlay.classList.remove('show'); }
+
+    // Event listeners for opening/closing sidebar
+    hamburger.onclick = () => sidebar.classList.contains('open') ? closeSidebarFunc() : openSidebar();
+    overlay.onclick = closeSidebarFunc;
+    closeSidebar.onclick = closeSidebarFunc;
+
+    // Event listeners for expanding submenus
+    sideParents.forEach(parent => {
+        parent.addEventListener('click', () => {
+            const targetId = parent.getAttribute('data-target');
+            const submenu = document.getElementById(`submenu-${targetId}`);
+            const isExpanded = parent.getAttribute('aria-expanded') === 'true';
+
+            // Collapse all other submenus
+            document.querySelectorAll('.side-parent[aria-expanded="true"]').forEach(otherParent => {
+                if (otherParent !== parent) {
+                    otherParent.setAttribute('aria-expanded', 'false');
+                    document.getElementById(`submenu-${otherParent.getAttribute('data-target')}`).classList.remove('show-submenu');
+                }
+            });
+
+            // Toggle current submenu
+            parent.setAttribute('aria-expanded', String(!isExpanded));
+            if (!isExpanded) {
+                submenu.classList.add('show-submenu');
+            } else {
+                submenu.classList.remove('show-submenu');
+            }
+        });
+    });
+</script>
 </body>
 </html>
-
-
