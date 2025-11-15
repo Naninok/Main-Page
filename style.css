@@ -3,11 +3,194 @@ body {
   background-color: #f9f9f9;
   color: #333;
   margin: 0;
-  height: 100vh;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Navigation Bar Styles (Desktop/Tablet Default) --- */
+
+.navbar {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 10px 40px;
+  display: flex;
+  justify-content: center; /* จัด nav-links ให้อยู่ตรงกลางแถบ */
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  /* ปรับขนาดฟอนต์ให้เหมาะกับมือถือใน Media Query */
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #333;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: 0.2s;
+  font-weight: 500;
+  font-size: 1rem; /* ขนาดเริ่มต้น */
+}
+
+.nav-link:hover, .nav-link.active {
+  background-color: #d10000;
+  color: white;
+}
+
+.nav-link.disabled {
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+.nav-link.disabled:hover {
+  background-color: transparent;
+  color: #aaa;
+}
+
+/* --- Dropdown (Pop-up Menu) Styles --- */
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-btn {
+  /* Inherits styles from .nav-link */
+  background-color: transparent;
+  color: #333;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.dropdown-btn:hover {
+  /* Inherits styles from .nav-link:hover */
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  min-width: 200px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  border-radius: 8px;
+  overflow: hidden;
+  top: 100%; 
+  left: 0;
+}
+
+.dropdown:hover .dropdown-content {
+  display: flex; 
+  flex-direction: column;
+}
+
+.dropdown-item {
+  color: #333;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-item:hover {
+  background-color: #f1f1f1;
+  color: #d10000;
+}
+
+.dropdown-item.disabled {
+  color: #aaa;
+  cursor: not-allowed;
+  font-style: italic;
+}
+
+.dropdown-item.disabled:hover {
+  background-color: #fff;
+  color: #aaa;
+}
+
+
+/* --- Mobile-Specific Styles (Media Query) --- */
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 10px 20px; /* ลด padding ด้านข้าง */
+    flex-direction: column; /* จัดเมนูซ้อนกันในแนวตั้ง */
+  }
+
+  .nav-links {
+    flex-direction: column; /* จัดลิงก์ในแนวตั้ง */
+    gap: 10px; /* ลดระยะห่างระหว่างลิงก์ */
+    width: 100%; /* ให้ nav-links กว้างเต็มพื้นที่ */
+    padding: 10px 0;
+  }
+
+  .nav-link {
+    width: 100%; /* ให้ลิงก์กว้างเต็มพื้นที่เพื่อกดง่าย */
+    text-align: center;
+    padding: 10px 0; /* เพิ่ม padding ในแนวตั้งเพื่อให้ปุ่มใหญ่ขึ้น */
+    font-size: 0.95rem; /* ลดขนาดตัวอักษรลงเล็กน้อย */
+  }
+
+  .dropdown, .dropdown-btn {
+    width: 100%;
+  }
+
+  .dropdown-content {
+    position: static; /* ให้ pop-up แสดงผลในตำแหน่งปกติแทนที่จะลอยอยู่ */
+    min-width: unset;
+    width: 100%;
+    box-shadow: none; /* เอาเงาออกเมื่อเป็นมือถือ */
+    border-radius: 0;
+    border-top: 1px solid #eee;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    /* บนมือถือ เมนูจะแสดงทันทีที่คลิก (ต้องใช้ JavaScript) 
+       แต่ตอนนี้เราใช้ :hover อยู่ จึงปรับให้แสดงเต็มความกว้าง */
+  }
+
+  .main-content {
+    padding: 10px; /* ลด padding หลัก */
+  }
+
+  .container {
+    padding: 30px 20px; /* ลด padding ใน container */
+  }
+
+  .logo {
+    width: 120px; /* ลดขนาดโลโก้ลง */
+    margin-bottom: 15px;
+  }
+
+  h1 {
+    font-size: 1.5rem; /* ลดขนาดหัวข้อ */
+    margin-bottom: 30px;
+  }
+
+  .btn {
+    padding: 12px 20px; /* ลดขนาดปุ่ม */
+    font-size: 1rem;
+  }
+}
+
+/* --- Main Content Positioning --- */
+
+.main-content {
+  flex-grow: 1;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px;
 }
+
+/* --- Original Container/Button Styles --- */
 
 .container {
   text-align: center;
@@ -24,6 +207,7 @@ body {
 
 h1 {
   color: #d10000; /* Veolia red */
+  margin-top: 0;
   margin-bottom: 40px;
   font-size: 2rem;
 }
@@ -42,10 +226,12 @@ h1 {
   padding: 15px 25px;
   border-radius: 8px;
   font-size: 1.1rem;
-  transition: 0.2s ease;
+  transition: all 0.2s ease;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
 }
 
 .btn:hover {
   background-color: #b00000;
   transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(0,0,0,0.2);
 }
