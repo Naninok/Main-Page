@@ -6,8 +6,7 @@
   <link rel="stylesheet" href="style.css">
   <title>Veolia Calculator</title>
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JVEP93Q72P"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js/id=G-JVEP93Q72P"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -17,14 +16,48 @@
   </script>
 </head>
 <body>
-  <div class="container">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Veolia_logo.svg/1024px-Veolia_logo.svg.png" 
+  
+  <nav class="navbar">
+    <div class="nav-links">
+      <a href="index.html" class="nav-link active">🏠 Home</a>
+      
+      <div class="dropdown">
+        <button class="nav-link dropdown-btn">
+          📊 Plant Calculators ▼
+        </button>
+        <div class="dropdown-content">
+          <a href="https://naninok.github.io/Veolia-calculator/" class="dropdown-item">Cargill Calculator</a>
+          
+          
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="nav-link dropdown-btn">
+          🧪 Dosing Calculator ▼
+        </button>
+        <div class="dropdown-content">
+          <a href="https://naninok.github.io/NT4201/" class="dropdown-item">NT4201</a>
+          
+        </div>
+      </div>
+
+      
+    </div>
+  </nav>
+
+  <div class="main-content">
+    <div class="container">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Veolia_logo.svg/1024px-Veolia_logo.svg.png" 
          alt="Veolia Logo" 
          class="logo">
-    <div class="button-container">
-      <a href="https://naninok.github.io/STP/" class="btn">STP Calculator</a>
-      <a href="https://naninok.github.io/LSI-Calculator/" class="btn">LSI Calculator</a>
+      
+      <div class="button-container">
+        <a href="https://naninok.github.io/STP/" class="btn">STP Calculator</a>
+        <a href="https://naninok.github.io/LSI-Calculator/" class="btn">LSI Calculator</a>
+      </div>
     </div>
   </div>
+
 </body>
 </html>
